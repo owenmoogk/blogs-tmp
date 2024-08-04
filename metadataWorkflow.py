@@ -42,11 +42,13 @@ def process_markdown_files(files, json_file):
 			data_dict[title] = entry
 		elif status == 'M':  # File is modified
 			if title in data_dict:
+				print("HERE")
 				data_dict[title]["title"] = title
 				data_dict[title]["tags"] = tags
 
 	# Convert dictionary back to list
 	data = list(data_dict.values())
+	print(data)
 
 	# Write updated data back to the JSON file
 	with open(json_file, 'w', encoding='utf-8') as f:
