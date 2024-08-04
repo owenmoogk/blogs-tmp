@@ -11,12 +11,6 @@ def get_modified_files():
     return files
 
 def process_markdown_files(files, json_file):
-    # Load existing JSON data if the file exists, otherwise start with an empty list
-    if os.path.exists(json_file):
-        with open(json_file, 'r') as f:
-            data = json.load(f)
-    else:
-        data = []
 
     # Create a dictionary for quick lookup
     data_dict = {item.get("title"): item for item in data}
@@ -28,7 +22,7 @@ def process_markdown_files(files, json_file):
         except Exception as e:
             print(f"Error processing {md_file}: {e}")
             continue
-        
+        print(status, md_file)
         title = post.get("title", "Untitled")
         tags = post.get("tags", [])
         
@@ -53,6 +47,7 @@ def process_markdown_files(files, json_file):
 
 if __name__ == "__main__":
     modified_files = get_modified_files()
+    print(modified_files)
     output_json = "./metadata.json"  # JSON file to be updated
     
     if modified_files:

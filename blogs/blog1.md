@@ -1,5 +1,5 @@
 ---
-title: "New post title"
+title: "aege"
 date: 2024-08-04
 tags: ["personal reflection", "tech"]
 ---
