@@ -19,7 +19,7 @@ def process_markdown_files(files, json_file):
         data = []
 
     # Create a dictionary for quick lookup
-    data_dict = {item.get("frontmatter", {}).get("title"): item for item in data}
+    data_dict = {item.get("title"): item for item in data}
 
     for status, md_file in files:
         try:
@@ -37,14 +37,12 @@ def process_markdown_files(files, json_file):
                 "date": datetime.now().strftime('%Y-%m-%d'),
                 "title": title,
                 "tags": tags,
-                "frontmatter": post.metadata
             }
             data_dict[title] = entry
         elif status == 'M':  # File is modified
             if title in data_dict:
                 data_dict[title]["title"] = title
                 data_dict[title]["tags"] = tags
-                data_dict[title]["frontmatter"] = post.metadata
 
     # Convert dictionary back to list
     data = list(data_dict.values())
