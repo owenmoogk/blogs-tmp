@@ -6,9 +6,22 @@ from subprocess import check_output
 
 def get_modified_files():
 	# Get the list of modified and newly created markdown files
-	output = check_output(["git", "diff", "--name-status", "HEAD^", "HEAD"]).decode("utf-8")
-	files = [line.strip().split('\t') for line in output.split("\n") if line.endswith(".md")]
-	return files
+	# Modified files since the last commit
+	modified_output = check_output(["git", "diff", "--name-status", "HEAD^", "HEAD"]).decode("utf-8")
+	
+	# Staged files (includes newly created)
+	staged_output = check_output(["git", "diff", "--cached", "--name-status"]).decode("utf-8")
+
+	# Combine both outputs
+	files = modified_output + staged_output
+	
+	# Process the combined output
+	file_statuses = [line.strip().split('\t') for line in files.split('\n') if line.endswith(".md")]
+
+	# Remove duplicates by converting to a set and back to a list
+	unique_files = list(set(file_statuses))
+	
+	return unique_files
 
 def process_markdown_files(files, json_file):
 	if os.path.exists(json_file):
