@@ -1,5 +1,5 @@
 ---
-title: "aetaetea"
+title: "gage"
 date: 2024-08-04
 tags: ["personal reflection", "tech"]
 ---
