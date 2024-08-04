@@ -11,16 +11,14 @@ def get_modified_files():
 	return files
 
 def process_markdown_files(files, json_file):
-
 	if os.path.exists(json_file):
 		with open(json_file, 'r') as f:
 			data = json.load(f)
 	else:
 		data = []
 
-
-	# Create a dictionary for quick lookup
-	data_dict = {item.get("title"): item for item in data}
+	# Create a dictionary for quick lookup based on file path
+	data_dict = {item.get("file_path"): item for item in data}
 
 	for status, md_file in files:
 		try:
@@ -29,26 +27,27 @@ def process_markdown_files(files, json_file):
 		except Exception as e:
 			print(f"Error processing {md_file}: {e}")
 			continue
-		print(status, md_file)
+
 		title = post.get("title", "Untitled")
 		tags = post.get("tags", [])
-		
+
 		if status == 'A':  # File is newly added
 			entry = {
 				"date": datetime.now().strftime('%Y-%m-%d'),
 				"title": title,
 				"tags": tags,
+				"file_path": md_file,
+				"frontmatter": post.metadata
 			}
-			data_dict[title] = entry
+			data_dict[md_file] = entry
 		elif status == 'M':  # File is modified
-			if title in data_dict:
-				print("HERE")
-				data_dict[title]["title"] = title
-				data_dict[title]["tags"] = tags
+			if md_file in data_dict:
+				data_dict[md_file]["title"] = title
+				data_dict[md_file]["tags"] = tags
+				data_dict[md_file]["frontmatter"] = post.metadata
 
 	# Convert dictionary back to list
 	data = list(data_dict.values())
-	print(data)
 
 	# Write updated data back to the JSON file
 	with open(json_file, 'w', encoding='utf-8') as f:
@@ -56,7 +55,6 @@ def process_markdown_files(files, json_file):
 
 if __name__ == "__main__":
 	modified_files = get_modified_files()
-	print(modified_files)
 	output_json = "./metadata.json"  # JSON file to be updated
 	
 	if modified_files:
