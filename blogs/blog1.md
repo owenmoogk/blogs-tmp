@@ -1,5 +1,5 @@
 ---
-title: "awfawfw"
+title: "aetaetea"
 date: 2024-08-04
 tags: ["personal reflection", "tech"]
 ---
