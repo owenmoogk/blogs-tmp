@@ -1,3 +1,8 @@
+---
+title: Smarter Every Day, Skateboarding, and Felt Art
+date: May 02, 2024
+tags: ["internet"]
+---
 
 ## Smarter Every Day, Skateboarding, and Felt Art
 

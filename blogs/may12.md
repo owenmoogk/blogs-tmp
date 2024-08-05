@@ -1,3 +1,8 @@
+---
+title: Project Inspiration, Cryptography, and Minecraft Java(script)
+date: May 12, 2024
+tags: ["internet", "tech"]
+---
 
 ## Project Inspiration, Cryptography, and Minecraft Java(script)
 

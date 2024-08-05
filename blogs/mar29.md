@@ -1,3 +1,8 @@
+---
+title: Pretending to Hack GitHub, and some Git Security Notes
+date: Mar 29, 2024
+tags: ["reflection", "tech"]
+---
 
 ## Pretending to Hack GitHub, and some Git Security Notes
 

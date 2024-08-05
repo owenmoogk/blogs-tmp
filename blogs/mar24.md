@@ -1,3 +1,8 @@
+---
+title: Hexaflexagons, Formula 1, and new Makers
+date: Mar 24, 2024
+tags: ["internet"]
+---
 
 ## Hexaflexagons, Formula 1, and new Makers
 

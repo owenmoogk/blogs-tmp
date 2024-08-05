@@ -1,3 +1,8 @@
+---
+title: Summer so far: Golf Scorekeeping, Water Polo, and a Gift for my Dad
+date: Jun 02, 2024
+tags: ["personal"]
+---
 
 ## Summer so far: Golf Scorekeeping, Water Polo, and a Gift for my Dad
 

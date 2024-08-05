@@ -1,3 +1,8 @@
+---
+title: Fire Codes, Minecraft Engineering, Carbon Dating, and “The Ukraine”
+date: Jun 27, 2024
+tags: ["internet"]
+---
 
 ## Fire Codes, Minecraft Engineering, Carbon Dating, and “The Ukraine”
 

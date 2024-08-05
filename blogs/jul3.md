@@ -1,3 +1,8 @@
+---
+title: A Fireworks Show, a Rabbit, a Jays Win, and Graffiti Alley
+date: Jul 03, 2024
+tags: ["personal"]
+---
 
 ## A Fireworks Show, a Rabbit, a Jays Win, and Graffiti Alley
 

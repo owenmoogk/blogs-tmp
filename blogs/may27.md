@@ -1,3 +1,8 @@
+---
+title: Internet Confusion, Mathematical Proofs, and a Car Swing
+date: May 27, 2024
+tags: ["internet"]
+---
 
 ## Internet Confusion, Mathematical Proofs, and a Car Swing
 

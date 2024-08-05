@@ -1,3 +1,8 @@
+---
+title: Optical Science, Precision Actuators, and a Bad UI Design
+date: Jun 02, 2024
+tags: ["internet"]
+---
 
 ## Optical Science, Precision Actuators, and a Bad UI Design
 

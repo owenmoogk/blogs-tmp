@@ -1,3 +1,8 @@
+---
+title: A Map of Wikipedia, Travelling Flames, and a Public Transport Visualization
+date: Apr 21, 2024
+tags: ["internet"]
+---
 
 ## A Map of Wikipedia, Travelling Flames, and a Public Transport Visualization
 

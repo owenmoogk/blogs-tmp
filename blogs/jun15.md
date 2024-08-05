@@ -1,3 +1,8 @@
+---
+title: Coding adventures, Intense CGI, and how Structural Engineering can go wrong.
+date: Jun 15, 2024
+tags: ["internet"]
+---
 
 ## Coding adventures, Intense CGI, and how Structural Engineering can go wrong.
 

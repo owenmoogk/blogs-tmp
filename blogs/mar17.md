@@ -1,3 +1,8 @@
+---
+title: Sudoku, a Secret Garage, and new Piano Music
+date: Mar 17, 2024
+tags: ["internet"]
+---
 
 ## Sudoku, a Secret Garage, and new Piano Music
 

@@ -1,3 +1,8 @@
+---
+title: Social Simulations, the Maple Syrup Heist, and why I’m mad at Microsoft.
+date: Apr 06, 2024
+tags: ["internet"]
+---
 
 ## Social Simulations, the Maple Syrup Heist, and why I’m mad at Microsoft.
 

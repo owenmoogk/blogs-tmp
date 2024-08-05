@@ -1,3 +1,8 @@
+---
+title: Leroy², Solar Eclipse Photography, and some neat Data Visualization
+date: May 21, 2024
+tags: ["internet"]
+---
 
 ## Leroy², Solar Eclipse Photography, and some neat Data Visualization
 

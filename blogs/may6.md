@@ -1,3 +1,8 @@
+---
+title: DNA Games, Marble Clocks, and a Frisbee Missile
+date: May 06, 2024
+tags: ["internet"]
+---
 
 ## DNA Games, Marble Clocks, and a Frisbee Missile
 

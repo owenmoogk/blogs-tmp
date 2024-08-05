@@ -1,3 +1,8 @@
+---
+title: Retro Beats, Analog Map Clocks, and World Perception
+date: Jun 09, 2024
+tags: ["internet"]
+---
 
 ## Retro Beats, Analog Map Clocks, and World Perception
 

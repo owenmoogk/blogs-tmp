@@ -1,3 +1,8 @@
+---
+title: Altium Designer, New Project Ideas, and Internet Classics
+date: Apr 13, 2024
+tags: ["internet"]
+---
 
 ## Altium Designer, New Project Ideas, and Internet Classics
 
