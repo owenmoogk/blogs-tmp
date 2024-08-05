@@ -41,9 +41,6 @@ def process_markdown_files(files, json_file):
 	# Create a dictionary for quick lookup based on file path
 	data_dict = {item.get("file_path"): item for item in data}
 
-	# Set of paths for quick lookup of existing file paths
-	existing_paths = set(data_dict.keys())
-
 	for status, md_file in files:
 		if status == 'D':  # File is deleted
 			if md_file in data_dict:
