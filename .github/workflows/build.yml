@@ -2,7 +2,7 @@ name: Build and Deploy
 
 on:
   workflow_run:
-    workflows: ["Workflow A"]
+    workflows: ["Update Metadata"]
     types:
     - completed
   
