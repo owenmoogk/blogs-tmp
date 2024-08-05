@@ -1,84 +1,29 @@
 import os
 import json
 import frontmatter
-from datetime import datetime
-from subprocess import check_output
 
-from subprocess import check_output
+def process_markdown_files(json_file):
 
-def get_modified_files():
-    # Get the list of modified, newly created, and deleted markdown files
-    # Modified files since the last commit
-    modified_output = check_output(["git", "diff", "--name-status", "HEAD^", "HEAD"]).decode("utf-8")
-    
-    # Staged files (includes newly created)
-    staged_output = check_output(["git", "diff", "--cached", "--name-status"]).decode("utf-8")
+	files = [os.path.join("blogs", file) for file in os.listdir("blogs") if os.path.isfile(os.path.join("blogs", file))]
+	data = []
+	for md_file in files:
+		try:
+			with open(md_file, 'r', encoding='utf-8') as f:
+				post = frontmatter.loads(f.read())
+		except Exception as e:
+			print(f"Error processing {md_file}: {e}")
+			continue
 
-    # Combine both outputs
-    files = modified_output + staged_output
-    
-    # Process the combined output
-    file_statuses = []
-    for line in files.split('\n'):
-        parts = line.strip().split('\t')
-        if len(parts) == 2 and parts[1].endswith(".md"):
-            file_statuses.append(parts)
-        elif len(parts) == 3 and parts[2].endswith(".md"):
-            file_statuses.append([parts[0], parts[2]])
-    
-    # Convert list of lists to a list of tuples for set operations
-    file_statuses_tuples = [tuple(status) for status in file_statuses]
-    
-    # Remove duplicates by converting to a set and back to a list
-    unique_files = list(set(file_statuses_tuples))
-    
-    # Convert back to list of lists if needed
-    unique_files = [list(item) for item in unique_files]
-    
-    return unique_files
-
-
-
-def process_markdown_files(files, json_file):
-	if os.path.exists(json_file):
-		with open(json_file, 'r') as f:
-			data = json.load(f)
-	else:
-		data = []
-
-	# Create a dictionary for quick lookup based on file path
-	data_dict = {item.get("file_path"): item for item in data}
-
-	for status, md_file in files:
-		if status == 'D':  # File is deleted
-			if md_file in data_dict:
-				del data_dict[md_file]  # Remove entry from dictionary
-		else:
-			try:
-				with open(md_file, 'r', encoding='utf-8') as f:
-					post = frontmatter.loads(f.read())
-			except Exception as e:
-				print(f"Error processing {md_file}: {e}")
-				continue
-
-			title = post.get("title", "Untitled")
-			tags = post.get("tags", [])
-
-			if status == 'A':  # File is newly added
-				entry = {
-					"date": datetime.now().strftime('%Y-%m-%d'),
-					"title": title,
-					"tags": tags,
-					"file_path": md_file,
-				}
-				data_dict[md_file] = entry
-			elif status == 'M':  # File is modified
-				if md_file in data_dict:
-					data_dict[md_file]["title"] = title
-					data_dict[md_file]["tags"] = tags
-
-	# Convert dictionary back to list
-	data = list(data_dict.values())
+		title = post.get("title", "Untitled")
+		tags = post.get("tags", [])
+		date = post.get("date")
+		entry = {
+			"date": date,
+			"title": title,
+			"tags": tags,
+			"file_path": "https://owenmoogk.github.io/blog/" + md_file,
+		}
+		data.append(entry)
 
 	# Write updated data back to the JSON file
 	with open(json_file, 'w', encoding='utf-8') as f:
@@ -86,10 +31,5 @@ def process_markdown_files(files, json_file):
 
 
 if __name__ == "__main__":
-	modified_files = get_modified_files()
 	output_json = "./metadata.json"  # JSON file to be updated
-	print(modified_files)
-	if modified_files:
-		process_markdown_files(modified_files, output_json)
-	else:
-		print("No modified markdown files to process.")
+	process_markdown_files(output_json)
