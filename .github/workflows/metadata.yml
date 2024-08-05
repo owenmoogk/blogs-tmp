@@ -2,8 +2,9 @@ name: Update Blog Metadata
 
 on:
   push:
-    paths:
-      - "blogs/**/*.md"  # Trigger the workflow when markdown files in the posts directory are pushed
+    branches:
+    - main
+  
 
 jobs:
   update_metadata:
