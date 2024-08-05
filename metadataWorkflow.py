@@ -21,7 +21,7 @@ def process_markdown_files(json_file):
 			"date": date,
 			"title": title,
 			"tags": tags,
-			"file_path": "https://owenmoogk.github.io/blog/" + md_file,
+			"file_path": "https://owenmoogk.github.io/blogs/" + md_file,
 		}
 		data.append(entry)
 
