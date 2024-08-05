@@ -4,31 +4,39 @@ import frontmatter
 from datetime import datetime
 from subprocess import check_output
 
+from subprocess import check_output
+
 def get_modified_files():
-	# Get the list of modified, newly created, and deleted markdown files
-	# Modified files since the last commit
-	modified_output = check_output(["git", "diff", "--name-status", "HEAD^", "HEAD"]).decode("utf-8")
-	
-	# Staged files (includes newly created)
-	staged_output = check_output(["git", "diff", "--cached", "--name-status"]).decode("utf-8")
+    # Get the list of modified, newly created, and deleted markdown files
+    # Modified files since the last commit
+    modified_output = check_output(["git", "diff", "--name-status", "HEAD^", "HEAD"]).decode("utf-8")
+    
+    # Staged files (includes newly created)
+    staged_output = check_output(["git", "diff", "--cached", "--name-status"]).decode("utf-8")
 
-	# Combine both outputs
-	files = modified_output + staged_output
-	
-	# Process the combined output
-	file_statuses = [line.strip().split('\t') for line in files.split('\n') if line.endswith(".md")]
+    # Combine both outputs
+    files = modified_output + staged_output
+    
+    # Process the combined output
+    file_statuses = []
+    for line in files.split('\n'):
+        parts = line.strip().split('\t')
+        if len(parts) == 2 and parts[1].endswith(".md"):
+            file_statuses.append(parts)
+        elif len(parts) == 3 and parts[2].endswith(".md"):
+            file_statuses.append([parts[0], parts[2]])
+    
+    # Convert list of lists to a list of tuples for set operations
+    file_statuses_tuples = [tuple(status) for status in file_statuses]
+    
+    # Remove duplicates by converting to a set and back to a list
+    unique_files = list(set(file_statuses_tuples))
+    
+    # Convert back to list of lists if needed
+    unique_files = [list(item) for item in unique_files]
+    
+    return unique_files
 
-	# Convert list of lists to a list of tuples for set operations
-	file_statuses_tuples = [tuple(status) for status in file_statuses]
-	
-	# Remove duplicates by converting to a set and back to a list
-	unique_files = list(set(file_statuses_tuples))
-	
-	# Convert back to list of lists if needed
-	unique_files = [list(item) for item in unique_files]
-	print(unique_files)
-	
-	return unique_files
 
 
 def process_markdown_files(files, json_file):
@@ -80,7 +88,7 @@ def process_markdown_files(files, json_file):
 if __name__ == "__main__":
 	modified_files = get_modified_files()
 	output_json = "./metadata.json"  # JSON file to be updated
-	
+	print(modified_files)
 	if modified_files:
 		process_markdown_files(modified_files, output_json)
 	else:
