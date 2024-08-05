@@ -5,7 +5,7 @@ from datetime import datetime
 from subprocess import check_output
 
 def get_modified_files():
-	# Get the list of modified and newly created markdown files
+		# Get the list of modified and newly created markdown files
 	# Modified files since the last commit
 	modified_output = check_output(["git", "diff", "--name-status", "HEAD^", "HEAD"]).decode("utf-8")
 	
@@ -18,8 +18,15 @@ def get_modified_files():
 	# Process the combined output
 	file_statuses = [line.strip().split('\t') for line in files.split('\n') if line.endswith(".md")]
 
+	# Convert list of lists to a list of tuples for set operations
+	file_statuses_tuples = [tuple(status) for status in file_statuses]
+	
 	# Remove duplicates by converting to a set and back to a list
-	unique_files = list(set(file_statuses))
+	unique_files = list(set(file_statuses_tuples))
+	
+	# Convert back to list of lists if needed
+	unique_files = [list(item) for item in unique_files]
+	print(unique_files)
 	
 	return unique_files
 
