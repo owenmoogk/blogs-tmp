@@ -5,7 +5,7 @@ from datetime import datetime
 from subprocess import check_output
 
 def get_modified_files():
-		# Get the list of modified and newly created markdown files
+	# Get the list of modified, newly created, and deleted markdown files
 	# Modified files since the last commit
 	modified_output = check_output(["git", "diff", "--name-status", "HEAD^", "HEAD"]).decode("utf-8")
 	
@@ -30,6 +30,7 @@ def get_modified_files():
 	
 	return unique_files
 
+
 def process_markdown_files(files, json_file):
 	if os.path.exists(json_file):
 		with open(json_file, 'r') as f:
@@ -40,31 +41,36 @@ def process_markdown_files(files, json_file):
 	# Create a dictionary for quick lookup based on file path
 	data_dict = {item.get("file_path"): item for item in data}
 
+	# Set of paths for quick lookup of existing file paths
+	existing_paths = set(data_dict.keys())
+
 	for status, md_file in files:
-		try:
-			with open(md_file, 'r', encoding='utf-8') as f:
-				post = frontmatter.loads(f.read())
-		except Exception as e:
-			print(f"Error processing {md_file}: {e}")
-			continue
-
-		title = post.get("title", "Untitled")
-		tags = post.get("tags", [])
-
-		if status == 'A':  # File is newly added
-			entry = {
-				"date": datetime.now().strftime('%Y-%m-%d'),
-				"title": title,
-				"tags": tags,
-				"file_path": md_file,
-				"frontmatter": post.metadata
-			}
-			data_dict[md_file] = entry
-		elif status == 'M':  # File is modified
+		if status == 'D':  # File is deleted
 			if md_file in data_dict:
-				data_dict[md_file]["title"] = title
-				data_dict[md_file]["tags"] = tags
-				data_dict[md_file]["frontmatter"] = post.metadata
+				del data_dict[md_file]  # Remove entry from dictionary
+		else:
+			try:
+				with open(md_file, 'r', encoding='utf-8') as f:
+					post = frontmatter.loads(f.read())
+			except Exception as e:
+				print(f"Error processing {md_file}: {e}")
+				continue
+
+			title = post.get("title", "Untitled")
+			tags = post.get("tags", [])
+
+			if status == 'A':  # File is newly added
+				entry = {
+					"date": datetime.now().strftime('%Y-%m-%d'),
+					"title": title,
+					"tags": tags,
+					"file_path": md_file,
+				}
+				data_dict[md_file] = entry
+			elif status == 'M':  # File is modified
+				if md_file in data_dict:
+					data_dict[md_file]["title"] = title
+					data_dict[md_file]["tags"] = tags
 
 	# Convert dictionary back to list
 	data = list(data_dict.values())
@@ -72,6 +78,7 @@ def process_markdown_files(files, json_file):
 	# Write updated data back to the JSON file
 	with open(json_file, 'w', encoding='utf-8') as f:
 		json.dump(data, f, indent=4)
+
 
 if __name__ == "__main__":
 	modified_files = get_modified_files()
